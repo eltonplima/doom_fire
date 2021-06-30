@@ -194,7 +194,7 @@ defmodule DoomFireWeb.PageLive do
 
   @impl true
   def mount(_params, _session, socket) do
-    if connected?(socket), do: Process.send_after(self(), :burn, @burn_interval)
+    if connected?(socket), do: send(self(), :burn)
 
     fire = Fire.new(@rows, @columns) |> Fire.set_base_fire_intensity(36)
 
