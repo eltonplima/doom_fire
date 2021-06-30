@@ -20,7 +20,7 @@ defmodule DoomFire.MixProject do
   def application do
     [
       mod: {DoomFire.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :os_mon]
     ]
   end
 
