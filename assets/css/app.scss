@@ -91,15 +91,19 @@
 
 table {
   border-spacing: 0;
-  //width: 100%;
   border-collapse: collapse;
-  //border: 1px solid black;
   border: none;
 }
 
 td {
   width: 45px;
   height: 45px;
+}
+
+td.pixel {
+  width: 4px;
+  height: 4px;
+  border: 0;
 }
 
 td.debug {
@@ -109,12 +113,6 @@ td.debug {
   font-family: monospace;
   font-size: 18px;
   position: relative;
-}
-
-td.pixel {
-  width: 4px;
-  height: 4px;
-  border: 0;
 }
 
 .pixel-index {

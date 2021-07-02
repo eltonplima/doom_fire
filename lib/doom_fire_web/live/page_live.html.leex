@@ -1,9 +1,10 @@
 <section class="phx-hero">
+  <div class="fire-container">
   <table>
     <tr>
     <%= if @debug do %>
       <%= for {coord, value} <- Map.to_list(@fire.data) |> Enum.sort(fn({key1, value1}, {key2, value2}) -> elem(key1, 0) * @fire.rows + elem(key1, 1) < elem(key2, 0) * @fire.rows + elem(key2, 1) end) do %>
-        <td>
+        <td class="debug">
           <div class="pixel-index">
             <%= elem(coord, 0) %>:<%= elem(coord, 1) %>
           </div>
@@ -29,4 +30,5 @@
       <% end %>
     <% end %>
   </table>
+  </div>
 </section>
