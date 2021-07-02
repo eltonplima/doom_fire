@@ -206,7 +206,7 @@ defmodule DoomFireWeb.PageLive do
     Process.send_after(self(), :burn, @burn_interval)
 
     decay_fun = fn parent_value ->
-      case parent_value - :rand.uniform(@columns) do
+      case parent_value - :rand.uniform(3) do
         value when value < 0 -> 0
         value -> value
       end
