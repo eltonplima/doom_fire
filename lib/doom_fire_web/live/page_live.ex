@@ -206,11 +206,8 @@ defmodule DoomFireWeb.PageLive do
   def handle_info(:burn, socket) do
     Process.send_after(self(), :burn, @burn_interval)
 
-    decay_fun = fn parent_value ->
-      case parent_value - :rand.uniform(3) do
-        value when value < 0 -> 0
-        value -> value
-      end
+    decay_fun = fn _parent_value ->
+      :rand.uniform(@max_random_decay)
     end
 
     fire = socket.assigns.fire

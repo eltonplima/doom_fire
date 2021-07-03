@@ -55,15 +55,29 @@ defmodule Fire do
     Enum.reduce(0..(columns - 1), fire, fn col, fire ->
       parent_particle_row = row + 1
       parent_particle_coord = {parent_particle_row, col}
-      particle_coord = {row, col}
-
       parent_particle_intensity = Map.get(fire.data, parent_particle_coord)
+      decay_value = decay.(parent_particle_intensity)
+
+      target_particle_col =
+        case col - decay_value do
+          value when value < 0 -> columns - decay_value
+          value -> value
+        end
+
+      target_particle_row = row
+      target_particle_coord = {target_particle_col, target_particle_row}
+
+      new_intensity =
+        case parent_particle_intensity - decay_value do
+          value when value < 0 -> 0
+          value -> value
+        end
 
       data =
         Map.put(
           fire.data,
-          particle_coord,
-          decay.(parent_particle_intensity)
+          target_particle_coord,
+          new_intensity
         )
 
       %__MODULE__{rows: fire.rows, columns: fire.columns, data: data}
