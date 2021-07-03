@@ -45,13 +45,13 @@ defmodule Fire do
     burn_rows(fire, penultimate_row, decay)
   end
 
-  def burn_rows(fire, start_row, decay) do
+  defp burn_rows(fire, start_row, decay) do
     Enum.reduce(start_row..0, fire, fn row, fire ->
       burn_cols(fire, row, decay)
     end)
   end
 
-  def burn_cols(%__MODULE__{columns: columns} = fire, row, decay) when is_function(decay) do
+  defp burn_cols(%__MODULE__{columns: columns} = fire, row, decay) when is_function(decay) do
     Enum.reduce(0..(columns - 1), fire, fn col, fire ->
       parent_particle_row = row + 1
       parent_particle_coord = {parent_particle_row, col}
@@ -84,7 +84,7 @@ defmodule Fire do
     end)
   end
 
-  def burn_cols(%__MODULE__{columns: columns} = fire, row, decay) do
+  defp burn_cols(%__MODULE__{columns: columns} = fire, row, decay) do
     Enum.reduce(0..(columns - 1), fire, fn col, fire ->
       parent_particle_row = row + 1
       parent_particle_coord = {parent_particle_row, col}
