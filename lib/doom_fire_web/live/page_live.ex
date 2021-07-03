@@ -1,8 +1,9 @@
 defmodule DoomFireWeb.PageLive do
   use DoomFireWeb, :live_view
-  @rows 10
-  @columns 10
-  @burn_interval 100
+  @rows 40
+  @columns 40
+  @burn_interval 80
+  @max_random_decay 4
   @debug false
   @fire_colors_palette %{
     0 => %{
