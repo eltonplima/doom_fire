@@ -19,7 +19,7 @@
       <% end %>
     <% else %>
           <%= for {coord, value} <- Map.to_list(@fire.data) |> Enum.sort(fn({key1, value1}, {key2, value2}) -> elem(key1, 0) * @fire.rows + elem(key1, 1) < elem(key2, 0) * @fire.rows + elem(key2, 1) end) do %>
-        <td style="background-color: rgb(<%= Map.get(@fire_colors_palette, value).r %>, <%= Map.get(@fire_colors_palette, value).g %>, <%= Map.get(@fire_colors_palette, value).b %>">
+        <td class="pixel" style="background-color: rgb(<%= Map.get(@fire_colors_palette, value).r %>, <%= Map.get(@fire_colors_palette, value).g %>, <%= Map.get(@fire_colors_palette, value).b %>">
         </td>
         <%= if elem(coord, 1) > 0 and rem(elem(coord, 1) + 1, @fire.columns) == 0 do %>
         </tr>
