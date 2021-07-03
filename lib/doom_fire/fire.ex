@@ -65,7 +65,7 @@ defmodule Fire do
         end
 
       target_particle_row = row
-      target_particle_coord = {target_particle_col, target_particle_row}
+      target_particle_coord = {target_particle_row, target_particle_col}
 
       new_intensity =
         case parent_particle_intensity - decay_value do
