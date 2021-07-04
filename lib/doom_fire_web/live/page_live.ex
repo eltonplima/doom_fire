@@ -3,7 +3,7 @@ defmodule DoomFireWeb.PageLive do
   @rows 40
   @columns 40
   @burn_interval 80
-  @max_random_decay 4
+  @max_random_decay 2
   @debug false
   @fire_colors_palette %{
     0 => %{
@@ -207,7 +207,7 @@ defmodule DoomFireWeb.PageLive do
     Process.send_after(self(), :burn, @burn_interval)
 
     decay_fun = fn _parent_value ->
-      :rand.uniform(@max_random_decay)
+      Enum.random(0..@max_random_decay)
     end
 
     fire = socket.assigns.fire
