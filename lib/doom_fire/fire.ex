@@ -65,7 +65,7 @@ defmodule Fire do
   end
 
   defp calculate_target_particle_coords(
-         %__MODULE__{columns: columns} = fire,
+         %__MODULE__{columns: columns},
          row,
          col,
          decay_value
