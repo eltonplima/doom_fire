@@ -14,15 +14,6 @@ defmodule FireTest do
              Fire.new(rows, columns)
   end
 
-  test "ignore default initial value if data is filled" do
-    rows = 2
-    columns = 2
-    data = %{{0, 0} => 1, {0, 1} => 2, {1, 0} => 3, {1, 1} => 4}
-
-    assert %Fire{rows: rows, columns: columns, data: data, initial_value: 0} ==
-             Fire.new(rows, columns, data)
-  end
-
   test "Enumerable.count implementation" do
     assert 100 = Enum.count(Fire.new(10, 10))
   end
@@ -34,16 +25,14 @@ defmodule FireTest do
   test "Enumerable.member? implementation" do
     rows = 2
     columns = 2
-    data = %{{0, 0} => 1, {0, 1} => 2, {1, 0} => 3, {1, 1} => 4}
 
-    assert Enum.member?(Fire.new(rows, columns, data), 3)
+    assert Enum.member?(Fire.new(rows, columns, 66), 66)
   end
 
   test "Enumerable.slice implementation" do
     rows = 2
     columns = 2
-    data = %{{0, 0} => 1, {0, 1} => 2, {1, 0} => 3, {1, 1} => 4}
-    assert [2, 3] == Enum.slice(Fire.new(rows, columns, data), 1..2)
+    assert [99, 99] == Enum.slice(Fire.new(rows, columns, 99), 1..2)
   end
 
   test "set_base_fire_intensity" do

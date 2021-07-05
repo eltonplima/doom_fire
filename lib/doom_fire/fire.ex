@@ -1,21 +1,15 @@
 defmodule Fire do
   defstruct rows: nil, columns: nil, data: [], initial_value: 0
 
-  def new(rows, columns, data \\ %{}, initial_value \\ 0) do
+  def new(rows, columns, initial_value \\ 0) do
     width = rows * columns
 
     data =
-      case length(Map.to_list(data)) do
-        0 ->
-          Enum.reduce(0..(width - 1), %{}, fn index, acc ->
-            row = div(index, rows)
-            col = rem(index, columns)
-            Map.put(acc, {row, col}, initial_value)
-          end)
-
-        _ ->
-          data
-      end
+      Enum.reduce(0..(width - 1), %{}, fn index, acc ->
+        row = div(index, rows)
+        col = rem(index, columns)
+        Map.put(acc, {row, col}, initial_value)
+      end)
 
     %__MODULE__{rows: rows, columns: columns, data: data}
   end
