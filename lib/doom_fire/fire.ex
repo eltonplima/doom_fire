@@ -14,15 +14,12 @@ defmodule Fire do
     %__MODULE__{rows: rows, columns: columns, data: data}
   end
 
-  def set_base_fire_intensity(
-        %__MODULE__{rows: rows, columns: columns} = fire,
-        intensity
-      ) do
+  def set_base_fire_intensity(%__MODULE__{rows: rows, columns: columns} = fire, intensity) do
     base_row = rows - 1
-    last_base_row_column = columns - 1
+    last_column_from_base_row = columns - 1
 
     fire =
-      Enum.reduce(0..last_base_row_column, fire, fn column, fire ->
+      Enum.reduce(0..last_column_from_base_row, fire, fn column, fire ->
         data = Map.put(fire.data, {base_row, column}, intensity)
         %__MODULE__{rows: fire.rows, columns: fire.columns, data: data}
       end)
@@ -30,27 +27,25 @@ defmodule Fire do
     fire
   end
 
-  def burn(
-        %__MODULE__{rows: rows} = fire,
-        decay \\ 1
-      ) do
+  def burn(%__MODULE__{rows: rows} = fire, decay_fun) do
     penultimate_row = rows - 2
 
-    burn_rows(fire, penultimate_row, decay)
+    burn_rows(fire, penultimate_row, decay_fun)
   end
 
-  defp burn_rows(fire, start_row, decay) do
+  defp burn_rows(fire, start_row, decay_fun) do
     Enum.reduce(start_row..0, fire, fn row, fire ->
-      burn_cols(fire, row, decay)
+      burn_cols(fire, row, decay_fun)
     end)
   end
 
-  defp burn_cols(%__MODULE__{columns: columns} = fire, row, decay) when is_function(decay) do
+  defp burn_cols(%__MODULE__{columns: columns} = fire, row, decay_fun)
+       when is_function(decay_fun) do
     Enum.reduce(0..(columns - 1), fire, fn col, fire ->
       parent_particle_row = row + 1
       parent_particle_coord = {parent_particle_row, col}
       parent_particle_intensity = Map.get(fire.data, parent_particle_coord)
-      decay_value = decay.()
+      decay_value = decay_fun.()
 
       target_particle_coord = calculate_target_particle_coords(fire, row, col, decay_value)
       new_intensity = calculate_particle_intensity(parent_particle_intensity, decay_value)
