@@ -98,19 +98,6 @@ defmodule Fire do
     %__MODULE__{rows: fire.rows, columns: fire.columns, data: data}
   end
 
-  defp burn_cols(%__MODULE__{columns: columns} = fire, row, decay) do
-    Enum.reduce(0..(columns - 1), fire, fn col, fire ->
-      parent_particle_row = row + 1
-      parent_particle_coord = {parent_particle_row, col}
-      particle_coord = {row, col}
-      #      decay = :rand.uniform(36)
-
-      parent_particle_intensity = Map.get(fire.data, parent_particle_coord)
-      data = Map.put(fire.data, particle_coord, parent_particle_intensity - decay)
-      %__MODULE__{rows: fire.rows, columns: fire.columns, data: data}
-    end)
-  end
-
   defimpl Enumerable do
     def count(fire) do
       {:ok, Enum.count(fire.data)}
