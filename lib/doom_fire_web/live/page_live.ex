@@ -206,7 +206,7 @@ defmodule DoomFireWeb.PageLive do
   def handle_info(:burn, socket) do
     Process.send_after(self(), :burn, @burn_interval)
 
-    decay_fun = fn _parent_value ->
+    decay_fun = fn ->
       Enum.random(0..@max_random_decay)
     end
 

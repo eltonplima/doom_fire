@@ -53,7 +53,8 @@ defmodule FireTest do
   end
 
   test "burn 2x2" do
-    fire = Fire.new(2, 2) |> Fire.set_base_fire_intensity(99) |> Fire.burn()
+    decay_fun = fn -> 1 end
+    fire = Fire.new(2, 2) |> Fire.set_base_fire_intensity(99) |> Fire.burn(decay_fun)
 
     expected = %{
       {0, 0} => 98,
@@ -66,7 +67,8 @@ defmodule FireTest do
   end
 
   test "burn 3x3" do
-    fire = Fire.new(3, 3) |> Fire.set_base_fire_intensity(99) |> Fire.burn()
+    decay_fun = fn -> 1 end
+    fire = Fire.new(3, 3) |> Fire.set_base_fire_intensity(99) |> Fire.burn(decay_fun)
 
     expected = %{
       {0, 0} => 97,
@@ -75,25 +77,6 @@ defmodule FireTest do
       {1, 0} => 98,
       {1, 1} => 98,
       {1, 2} => 98,
-      {2, 0} => 99,
-      {2, 1} => 99,
-      {2, 2} => 99
-    }
-
-    assert expected == fire.data
-  end
-
-  test "burn with decay function" do
-    decay_fun = fn value -> value - 2 end
-    fire = Fire.new(3, 3) |> Fire.set_base_fire_intensity(99) |> Fire.burn(decay_fun)
-
-    expected = %{
-      {0, 0} => 95,
-      {0, 1} => 95,
-      {0, 2} => 95,
-      {1, 0} => 97,
-      {1, 1} => 97,
-      {1, 2} => 97,
       {2, 0} => 99,
       {2, 1} => 99,
       {2, 2} => 99

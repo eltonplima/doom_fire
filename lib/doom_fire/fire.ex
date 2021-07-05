@@ -56,7 +56,7 @@ defmodule Fire do
       parent_particle_row = row + 1
       parent_particle_coord = {parent_particle_row, col}
       parent_particle_intensity = Map.get(fire.data, parent_particle_coord)
-      decay_value = decay.(parent_particle_intensity)
+      decay_value = decay.()
 
       target_particle_coord = calculate_target_particle_coords(fire, row, col, decay_value)
       new_intensity = calculate_particle_intensity(parent_particle_intensity, decay_value)
