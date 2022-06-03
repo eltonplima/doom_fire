@@ -42,15 +42,23 @@ defmodule Fire do
   defp burn_cols(%__MODULE__{columns: columns} = fire, row, decay_fun)
        when is_function(decay_fun) do
     Enum.reduce(0..(columns - 1), fire, fn col, fire ->
-      parent_particle_row = row + 1
-      parent_particle_coord = {parent_particle_row, col}
-      parent_particle_intensity = Map.get(fire.data, parent_particle_coord)
+      parent_particle_intensity = get_parent_particle_intensity(fire, row, col)
       decay_value = decay_fun.()
 
       target_particle_coord = calculate_target_particle_coords(fire, row, col, decay_value)
       new_intensity = calculate_particle_intensity(parent_particle_intensity, decay_value)
       set_particle_intensity(fire, target_particle_coord, new_intensity)
     end)
+  end
+
+  defp get_parent_particle_coord(row, col) do
+    parent_particle_row = row + 1
+    {parent_particle_row, col}
+  end
+
+  defp get_parent_particle_intensity(fire, row, col) do
+    parent_particle_coord = get_parent_particle_coord(row, col)
+    Map.get(fire.data, parent_particle_coord)
   end
 
   defp calculate_target_particle_coords(
