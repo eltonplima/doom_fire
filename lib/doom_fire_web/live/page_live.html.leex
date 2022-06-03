@@ -1,6 +1,7 @@
 <section class="phx-hero">
+    <h3>Click on fire to toggle DEBUG</h3>
   <div class="fire-container">
-  <table>
+  <table phx-click="toggle_debug" phx-value-debug="<%= @debug %>">
     <tr>
     <%= if @debug do %>
       <%= for {coord, value} <- Map.to_list(@fire.data) |> Enum.sort(fn({key1, value1}, {key2, value2}) -> elem(key1, 0) * @fire.rows + elem(key1, 1) < elem(key2, 0) * @fire.rows + elem(key2, 1) end) do %>

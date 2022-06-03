@@ -214,4 +214,11 @@ defmodule DoomFireWeb.PageLive do
     fire = Fire.burn(fire, decay_fun)
     {:noreply, assign(socket, :fire, fire)}
   end
+
+  def handle_event("toggle_debug", %{"debug" => "false"}, socket) do
+    {:noreply, assign(socket, :debug, true)}
+  end
+  def handle_event("toggle_debug", %{"debug" => "true"}, socket) do
+    {:noreply, assign(socket, :debug, false)}
+  end
 end
