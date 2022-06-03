@@ -1,4 +1,3 @@
-/* This file is for your main application css. */
 table {
   border-spacing: 0;
   border-collapse: collapse;
@@ -38,5 +37,3 @@ td.debug {
   border: 1px solid;
   display: inline-block;
 }
-
-/*# sourceMappingURL=app.css.map */
